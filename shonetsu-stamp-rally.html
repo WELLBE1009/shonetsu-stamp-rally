@@ -1266,7 +1266,7 @@
 
       // 本日スタンプ取得済みチェック
       const today = new Date().toISOString().split('T')[0];
-      const alreadyToday = currentStamps.some(s => s.date === today);
+      const alreadyToday = !isTestMode && currentStamps.some(s => s.date === today);
       if (alreadyToday) {
         window.showNotify("本日のスタンプは既に取得済みです。\n1日1スタンプまでとなります。\n明日また参加施設をお訪ねください！", "ℹ️");
         isProcessing = false;
