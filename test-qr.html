@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>テスト用QRコード</title>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+  <style>
+    body { font-family: sans-serif; background: #fffde8; padding: 20px; }
+    h1 { font-size: 1.2rem; margin-bottom: 4px; }
+    p { font-size: 0.8rem; color: #888; margin-bottom: 20px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; }
+    .card { background: #fff; border-radius: 12px; padding: 16px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    .card h2 { font-size: 0.9rem; margin-bottom: 10px; color: #333; }
+    canvas { display: block; margin: 0 auto; }
+    .secret { font-size: 0.6rem; color: #bbb; margin-top: 6px; word-break: break-all; }
+    .app-link { display: block; margin-bottom: 20px; background: #fdd000; color: #333; font-weight: bold; text-align: center; padding: 12px; border-radius: 10px; text-decoration: none; font-size: 0.95rem; }
+  </style>
+</head>
+<body>
+  <h1>テスト用QRコード一覧</h1>
+  <p>このページはテスト専用です。各QRコードをスキャンしてスタンプを取得できます。</p>
+  <a class="app-link" href="shonetsu-stamp-rally.html?test=1">▶ テストモードでアプリを開く</a>
+  <div class="grid" id="grid"></div>
+
+  <script>
+    const facilities = [
+      { name: "サウナ施設A", qrSecret: "SHONETSU2026_F00_K9X7MP2Q" },
+      { name: "サウナ施設B", qrSecret: "SHONETSU2026_F01_R3T8NL5W" },
+      { name: "サウナ施設C", qrSecret: "SHONETSU2026_F02_Z6V1JH4Y" },
+      { name: "サウナ施設D", qrSecret: "SHONETSU2026_F03_B2W5CM8E" },
+      { name: "サウナ施設E", qrSecret: "SHONETSU2026_F04_P7A3XK6D" },
+      { name: "サウナ施設F", qrSecret: "SHONETSU2026_F05_Q1N9RZ4F" },
+      { name: "サウナ施設G", qrSecret: "SHONETSU2026_F06_L8G2YT7S" },
+      { name: "サウナ施設H", qrSecret: "SHONETSU2026_F07_H4C6WM1U" },
+    ];
+
+    const grid = document.getElementById('grid');
+    facilities.forEach(f => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      const canvas = document.createElement('canvas');
+      card.innerHTML = `<h2>${f.name}</h2>`;
+      card.appendChild(canvas);
+      const secret = document.createElement('div');
+      secret.className = 'secret';
+      secret.textContent = f.qrSecret;
+      card.appendChild(secret);
+      grid.appendChild(card);
+      QRCode.toCanvas(canvas, f.qrSecret, { width: 128, margin: 1 });
+    });
+  </script>
+</body>
+</html>

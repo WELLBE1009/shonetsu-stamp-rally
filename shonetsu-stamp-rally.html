@@ -1220,13 +1220,14 @@
     }
 
     // ===== QRスキャナー =====
+    const isTestMode = new URLSearchParams(window.location.search).get('test') === '1';
     window.openQRScanner = async function() {
       const now = new Date();
-      if (now < CAMPAIGN_START) {
+      if (!isTestMode && now < CAMPAIGN_START) {
         window.showNotify("キャンペーンはまだ始まっていません。\n開始日：2026年6月1日（月）", "📅");
         return;
       }
-      if (now > CAMPAIGN_END) {
+      if (!isTestMode && now > CAMPAIGN_END) {
         window.showNotify("キャンペーン期間が終了しました。\n期間：2026年6月1日〜30日\nご参加ありがとうございました。", "📅");
         return;
       }
