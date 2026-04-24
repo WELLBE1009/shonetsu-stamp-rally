@@ -1,0 +1,1447 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>暑熱順化スタンプラリー2026</title>
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', 'メイリオ', Meiryo, sans-serif;
+      background: #fffde8;
+      color: #333;
+      min-height: 100vh;
+    }
+
+    /* ==============================
+       ヘッダー画像
+    ============================== */
+    .header {
+      width: 100%;
+      line-height: 0;
+      max-width: 480px;
+      margin: 0 auto;
+      display: block;
+    }
+    .header-img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* ==============================
+       キャンペーン帯
+    ============================== */
+    .campaign-strip {
+      background: #222;
+      color: #fff;
+      text-align: center;
+      padding: 8px 16px;
+      font-size: 0.82rem;
+      font-weight: bold;
+    }
+    .campaign-strip span { color: #fdd000; }
+
+    /* ==============================
+       メインコンテンツ
+    ============================== */
+    .main {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 0 14px 40px;
+    }
+
+    /* ==============================
+       暑熱順化とは？セクション
+    ============================== */
+    .about-section {
+      background: #fff;
+      border-radius: 14px;
+      margin: 14px 0;
+      overflow: hidden;
+      box-shadow: 0 3px 14px rgba(0,0,0,0.09);
+    }
+    .about-header {
+      background: linear-gradient(90deg, #fdd000, #ffe033);
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .about-header-title {
+      color: #222;
+      font-size: 1rem;
+      font-weight: bold;
+    }
+    .about-body {
+      padding: 12px 14px;
+    }
+    .about-body p {
+      font-size: 0.82rem;
+      color: #555;
+      line-height: 1.7;
+      margin-bottom: 10px;
+    }
+    .about-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin-top: 10px;
+    }
+    .about-step {
+      background: #fffde0;
+      border: 1.5px solid #ffe066;
+      border-radius: 10px;
+      padding: 8px 4px;
+      text-align: center;
+    }
+    .about-step-img { width: 100%; height: auto; display: block; border-radius: 6px; }
+    .about-step .step-label {
+      font-size: 0.62rem;
+      color: #c49a00;
+      font-weight: bold;
+      margin-top: 4px;
+      line-height: 1.3;
+    }
+
+    /* ==============================
+       DAYチャレンジ帯
+    ============================== */
+    .challenge-section {
+      background: #fff;
+      border-radius: 14px;
+      margin: 14px 0;
+      overflow: hidden;
+      box-shadow: 0 3px 14px rgba(0,0,0,0.09);
+    }
+    .challenge-header {
+      background: linear-gradient(90deg, #fdd000, #ffe033);
+      padding: 10px 14px;
+    }
+    .challenge-header-title {
+      color: #222;
+      font-size: 1rem;
+      font-weight: bold;
+    }
+    .challenge-header-sub {
+      color: rgba(0,0,0,0.5);
+      font-size: 0.72rem;
+      margin-top: 2px;
+    }
+    .day-track {
+      padding: 14px 12px;
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .day-track::-webkit-scrollbar { display: none; }
+    .day-card {
+      flex-shrink: 0;
+      width: 68px;
+      background: #fff6ee;
+      border: 2px solid #ffd5bc;
+      border-radius: 12px;
+      padding: 8px 4px;
+      text-align: center;
+      transition: all 0.25s;
+    }
+    .day-card.stamped {
+      background: linear-gradient(135deg, #fffde0, #ffe566);
+      border-color: #fdd000;
+    }
+    .day-card.prize-ready {
+      background: linear-gradient(135deg, #fffbf0, #fff0aa);
+      border-color: #f5c842;
+    }
+    .day-label {
+      font-size: 0.6rem;
+      font-weight: bold;
+      color: #c49a00;
+      margin-bottom: 4px;
+      letter-spacing: 0.05em;
+    }
+    .day-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 6px;
+      margin-top: 4px;
+    }
+    .day-img-empty {
+      opacity: 0.35;
+      filter: grayscale(40%);
+    }
+
+    /* ==============================
+       スタンプ取得状況カード
+    ============================== */
+    .status-card {
+      background: #fff;
+      border-radius: 14px;
+      margin: 14px 0;
+      overflow: hidden;
+      box-shadow: 0 3px 14px rgba(0,0,0,0.09);
+    }
+    .status-header {
+      background: linear-gradient(90deg, #fdd000, #ffe033);
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .status-header-title {
+      color: #222;
+      font-size: 1rem;
+      font-weight: bold;
+    }
+    .status-body { padding: 14px; }
+    .count-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 4px;
+      margin-bottom: 4px;
+    }
+    .count-num {
+      font-size: 3rem;
+      font-weight: 900;
+      color: #c49a00;
+      line-height: 1;
+    }
+    .count-denom { font-size: 1.1rem; color: #bbb; }
+    .count-label { text-align: center; font-size: 0.78rem; color: #aaa; margin-bottom: 14px; }
+    .status-stamp-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .stamp-slot {
+      width: 100%;
+      max-width: 64px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      border: 2.5px dashed #e0e0e0;
+      background: #f8f8f8;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .stamp-slot.filled {
+      border: 2.5px solid #fdd000;
+      background: linear-gradient(135deg, #fffde0, #ffe566);
+      animation: stampPop 0.4s cubic-bezier(.36,.07,.19,.97);
+    }
+    .stamp-slot .slot-day {
+      font-size: 0.55rem;
+      color: #ccc;
+      position: absolute;
+      bottom: 5px;
+      font-weight: bold;
+    }
+    .stamp-slot.filled .slot-day { color: #c49a00; }
+    .stamp-slot.milestone-slot {
+      border-color: #f5a623;
+      box-shadow: 0 0 0 2px #ffe06644;
+    }
+    .stamp-slot.milestone-slot.filled {
+      border-color: #f5a623;
+      background: linear-gradient(135deg, #fff3cc, #fdd000);
+    }
+
+    /* マイルストーン一覧 */
+    .milestone-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .ms-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #f9f9f9;
+      border: 1.5px solid #e8e8e8;
+      border-radius: 10px;
+      padding: 8px 10px;
+    }
+    .ms-row.ms-done { background: #f3f3f3; opacity: 0.65; }
+    .ms-row.ms-open { background: #fffde0; border-color: #fdd000; }
+    .ms-label { font-size: 0.75rem; font-weight: bold; color: #555; min-width: 56px; }
+    .ms-prize { font-size: 0.8rem; color: #333; flex: 1; }
+    .ms-tag {
+      font-size: 0.7rem;
+      font-weight: bold;
+      padding: 2px 8px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+    .ms-tag.ms-claimed { background: #e0e0e0; color: #888; }
+    .ms-tag.ms-ready   { background: #fdd000; color: #5a4000; }
+    .ms-tag.ms-pending { background: #eee; color: #aaa; }
+
+    @keyframes stampPop {
+      0%   { transform: scale(1.6) rotate(-12deg); opacity: 0; }
+      65%  { transform: scale(0.9) rotate(4deg); }
+      100% { transform: scale(1) rotate(0); opacity: 1; }
+    }
+
+    /* ===== ステータスボックス ===== */
+    .status-msg-prize {
+      background: linear-gradient(135deg, #fff9e0, #fff3b8);
+      border: 2px solid #f5c842;
+      border-radius: 12px;
+      padding: 12px 14px;
+      text-align: center;
+    }
+    .status-msg-prize .msg-title {
+      font-size: 1.05rem;
+      font-weight: bold;
+      color: #b07f00;
+    }
+    .status-msg-prize .msg-sub {
+      font-size: 0.78rem;
+      color: #999;
+      margin-top: 4px;
+      line-height: 1.5;
+    }
+    .status-msg-progress {
+      background: #f8f8f8;
+      border-radius: 10px;
+      padding: 10px 12px;
+      text-align: center;
+      font-size: 0.88rem;
+      color: #666;
+    }
+    .status-msg-progress strong { color: #c49a00; font-size: 1.1rem; }
+    .status-msg-claimed {
+      background: #f0f4ff;
+      border: 1.5px solid #b0c0ff;
+      border-radius: 10px;
+      padding: 10px 12px;
+      text-align: center;
+      font-size: 0.88rem;
+      color: #4466cc;
+    }
+
+    /* ==============================
+       ボタン
+    ============================== */
+    .btn-area {
+      margin: 14px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .btn-primary {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 17px;
+      background: linear-gradient(180deg, #ffe033 0%, #fdd000 100%);
+      color: #222;
+      border: none;
+      border-radius: 32px;
+      font-size: 1.05rem;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 5px 18px rgba(200,160,0,0.4);
+      transition: transform 0.15s, box-shadow 0.15s;
+      letter-spacing: 0.03em;
+    }
+    .btn-primary:active { transform: scale(0.97); box-shadow: none; }
+    .btn-primary:disabled { background: #ccc; box-shadow: none; cursor: not-allowed; }
+    .btn-secondary {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 15px;
+      background: #fff;
+      color: #c49a00;
+      border: 2px solid #fdd000;
+      border-radius: 32px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .btn-secondary:active { background: rgba(251,87,31,0.06); }
+
+    /* ==============================
+       参加施設一覧
+    ============================== */
+    .facility-section {
+      background: #fff;
+      border-radius: 14px;
+      margin: 14px 0;
+      overflow: hidden;
+      box-shadow: 0 3px 14px rgba(0,0,0,0.09);
+    }
+    .facility-section-header {
+      background: linear-gradient(90deg, #fdd000, #ffe033);
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .facility-section-title {
+      color: #222;
+      font-size: 1rem;
+      font-weight: bold;
+    }
+    .facility-list { padding: 4px 14px 8px; }
+    .facility-item {
+      display: flex;
+      align-items: center;
+      padding: 11px 0;
+      border-bottom: 1px solid #f5f0eb;
+      gap: 10px;
+    }
+    .facility-item:last-child { border-bottom: none; }
+    .facility-icon-img { width: 36px; height: 36px; object-fit: contain; flex-shrink: 0; }
+    .facility-name { font-size: 0.93rem; font-weight: bold; color: #333; flex: 1; }
+    .facility-stamp-icon { font-size: 1.3rem; min-width: 28px; text-align: center; }
+    .facility-empty {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      border: 2px dashed #ddd;
+      display: inline-block;
+    }
+
+    /* ==============================
+       参加方法（フライヤー風）
+    ============================== */
+    .howto-section {
+      background: #fff;
+      border-radius: 14px;
+      margin: 14px 0;
+      overflow: hidden;
+      box-shadow: 0 3px 14px rgba(0,0,0,0.09);
+    }
+    .howto-header {
+      background: linear-gradient(90deg, #fdd000, #ffe033);
+      padding: 10px 14px;
+    }
+    .howto-header-title {
+      color: #222;
+      font-size: 1rem;
+      font-weight: bold;
+    }
+    .howto-body { padding: 14px; }
+    .howto-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .howto-step:last-of-type { margin-bottom: 0; }
+    .howto-step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #fdd000;
+      color: #222;
+      font-weight: bold;
+      font-size: 0.88rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .howto-step-body { flex: 1; }
+    .howto-step-title {
+      font-size: 0.93rem;
+      font-weight: bold;
+      color: #333;
+      line-height: 1.4;
+    }
+    .howto-step-desc {
+      font-size: 0.78rem;
+      color: #888;
+      margin-top: 2px;
+      line-height: 1.5;
+    }
+    .howto-note {
+      background: #fffde0;
+      border-left: 3px solid #fdd000;
+      border-radius: 0 8px 8px 0;
+      padding: 8px 10px;
+      margin-top: 12px;
+      font-size: 0.72rem;
+      color: #888;
+      line-height: 1.7;
+    }
+
+    /* ==============================
+       QRスキャンモーダル
+    ============================== */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      z-index: 500;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-overlay.active { display: flex; }
+    .qr-box {
+      background: #fff;
+      border-radius: 20px;
+      padding: 20px;
+      width: 92%;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 10px 50px rgba(0,0,0,0.35);
+    }
+    .qr-box-title {
+      font-size: 1.05rem;
+      font-weight: bold;
+      margin-bottom: 14px;
+      color: #333;
+    }
+    #qr-reader { width: 100%; border-radius: 12px; overflow: hidden; background: #000; }
+    .qr-tip {
+      font-size: 0.75rem;
+      color: #aaa;
+      margin: 10px 0 14px;
+      line-height: 1.5;
+    }
+    .btn-qr-close {
+      padding: 11px 28px;
+      background: #666;
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      font-size: 0.93rem;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    /* ==============================
+       スタンプカードモーダル
+    ============================== */
+    .sc-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.88);
+      z-index: 600;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .sc-overlay.active { display: flex; }
+    .sc-card {
+      background: linear-gradient(160deg, #fffef5, #fffde0);
+      border: 3px solid #fdd000;
+      border-radius: 22px;
+      padding: 22px 18px 18px;
+      width: 100%;
+      max-width: 380px;
+      text-align: center;
+      box-shadow: 0 10px 50px rgba(0,0,0,0.45);
+    }
+    .sc-logo { font-size: 2.2rem; margin-bottom: 4px; }
+    .sc-title {
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: #c49a00;
+      margin-bottom: 2px;
+    }
+    .sc-period { font-size: 0.68rem; color: #bbb; margin-bottom: 14px; }
+    .sc-stamp-row {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 7px;
+      margin-bottom: 12px;
+    }
+    .sc-slot {
+      width: 100%;
+      max-width: 58px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      border: 2px dashed #ddd;
+      background: #f5f5f5;
+      position: relative;
+    }
+    .sc-slot.filled {
+      border: 2px solid #fdd000;
+      background: linear-gradient(135deg, #fffde0, #ffe566);
+    }
+    .sc-slot .sc-day {
+      font-size: 0.5rem;
+      position: absolute;
+      bottom: 4px;
+      color: #ccc;
+      font-weight: bold;
+    }
+    .sc-slot.filled .sc-day { color: #c49a00; }
+    .sc-ready {
+      background: linear-gradient(135deg, #fffbe0, #fff0a8);
+      border: 2px solid #f5c842;
+      border-radius: 12px;
+      padding: 10px 14px;
+      margin-bottom: 12px;
+      font-size: 0.93rem;
+      font-weight: bold;
+      color: #b07f00;
+      line-height: 1.5;
+    }
+    .sc-progress { font-size: 0.85rem; color: #888; margin-bottom: 12px; }
+    .sc-id {
+      font-size: 0.65rem;
+      color: #ccc;
+      font-family: monospace;
+      margin-bottom: 14px;
+    }
+    .btn-sc-claim {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(180deg, #ffd740, #ffc200);
+      color: #7a5000;
+      border: none;
+      border-radius: 24px;
+      font-size: 0.93rem;
+      font-weight: bold;
+      cursor: pointer;
+      margin-bottom: 8px;
+      box-shadow: 0 3px 10px rgba(255,193,0,0.4);
+    }
+    .btn-sc-close {
+      padding: 11px 30px;
+      background: #555;
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      font-size: 0.88rem;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    /* ==============================
+       通知モーダル
+    ============================== */
+    .notify-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      z-index: 800;
+      align-items: center;
+      justify-content: center;
+    }
+    .notify-overlay.active { display: flex; }
+    .notify-box {
+      background: #fff;
+      border-radius: 20px;
+      padding: 26px 22px 20px;
+      width: 86%;
+      max-width: 360px;
+      text-align: center;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.25);
+    }
+    .notify-icon { font-size: 2.2rem; margin-bottom: 10px; }
+    .notify-msg {
+      font-size: 0.95rem;
+      color: #333;
+      line-height: 1.75;
+      margin-bottom: 20px;
+      white-space: pre-line;
+    }
+    .btn-notify {
+      padding: 13px 36px;
+      background: linear-gradient(180deg, #ffe033 0%, #fdd000 100%);
+      color: #222;
+      border: none;
+      border-radius: 24px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(251,87,31,0.35);
+    }
+
+    /* ==============================
+       フラッシュ通知
+    ============================== */
+    .flash {
+      position: fixed;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-70px);
+      background: #222;
+      color: #fff;
+      padding: 12px 22px;
+      border-radius: 30px;
+      font-size: 0.88rem;
+      font-weight: bold;
+      z-index: 900;
+      white-space: nowrap;
+      transition: transform 0.35s cubic-bezier(.17,.67,.56,1.2), opacity 0.3s;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .flash.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* ==============================
+       フッター
+    ============================== */
+    .footer {
+      background: #222;
+      color: rgba(255,255,255,0.75);
+      text-align: center;
+      padding: 16px;
+      font-size: 0.72rem;
+      line-height: 1.8;
+      margin-top: 20px;
+    }
+    .footer strong { color: #fff; }
+
+    /* ==============================
+       引き継ぎコード表示
+    ============================== */
+    .code-box {
+      background: #fffde0;
+      border: 2px solid #fdd000;
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-top: 14px;
+      text-align: center;
+    }
+    .code-box-label {
+      font-size: 0.72rem;
+      color: #a07800;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+    .code-value {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: #222;
+      letter-spacing: 0.15em;
+      font-family: monospace;
+      margin-bottom: 8px;
+    }
+    .code-note {
+      font-size: 0.68rem;
+      color: #aaa;
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+    .btn-transfer {
+      display: inline-block;
+      padding: 8px 20px;
+      background: #fff;
+      color: #c49a00;
+      border: 1.5px solid #fdd000;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* ==============================
+       引き継ぎモーダル
+    ============================== */
+    .transfer-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 700;
+      align-items: center;
+      justify-content: center;
+    }
+    .transfer-overlay.active { display: flex; }
+    .transfer-box {
+      background: #fff;
+      border-radius: 20px;
+      padding: 26px 22px 22px;
+      width: 88%;
+      max-width: 360px;
+      text-align: center;
+      box-shadow: 0 10px 50px rgba(0,0,0,0.3);
+    }
+    .transfer-title {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #222;
+      margin-bottom: 6px;
+    }
+    .transfer-desc {
+      font-size: 0.8rem;
+      color: #888;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .transfer-input {
+      width: 100%;
+      padding: 14px;
+      font-size: 1.4rem;
+      font-weight: bold;
+      text-align: center;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      outline: none;
+      letter-spacing: 0.2em;
+      color: #222;
+      background: #f8f8f8;
+      font-family: monospace;
+      text-transform: uppercase;
+    }
+    .transfer-input:focus { border-color: #fdd000; background: #fffde8; }
+    .transfer-error {
+      font-size: 0.78rem;
+      color: #e53935;
+      min-height: 20px;
+      margin: 6px 0 10px;
+      font-weight: bold;
+      line-height: 1.4;
+    }
+    .transfer-btns {
+      display: flex;
+      gap: 10px;
+    }
+    .btn-transfer-cancel {
+      flex: 1;
+      padding: 13px;
+      background: #f0f0f0;
+      color: #666;
+      border: none;
+      border-radius: 24px;
+      font-size: 0.95rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .btn-transfer-ok {
+      flex: 1;
+      padding: 13px;
+      background: linear-gradient(180deg, #ffe033, #fdd000);
+      color: #222;
+      border: none;
+      border-radius: 24px;
+      font-size: 0.95rem;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 3px 10px rgba(200,160,0,0.3);
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- 通知モーダル -->
+  <div id="notify-overlay" class="notify-overlay">
+    <div class="notify-box">
+      <div id="notify-icon" class="notify-icon">ℹ️</div>
+      <p id="notify-msg" class="notify-msg"></p>
+      <button class="btn-notify" onclick="closeNotify()">OK</button>
+    </div>
+  </div>
+
+  <!-- 引き継ぎモーダル -->
+  <div id="transfer-overlay" class="transfer-overlay">
+    <div class="transfer-box">
+      <div class="transfer-title">📱 スタンプを引き継ぐ</div>
+      <p class="transfer-desc">以前ご利用の引き継ぎコードを入力してください<br>（例：ABCD-1234）</p>
+      <input id="transfer-input" class="transfer-input" type="text" maxlength="9" placeholder="XXXX-XXXX" oninput="formatTransferInput(this)">
+      <div id="transfer-error" class="transfer-error"></div>
+      <div class="transfer-btns">
+        <button class="btn-transfer-cancel" onclick="closeTransferModal()">キャンセル</button>
+        <button class="btn-transfer-ok" onclick="submitTransfer()">引き継ぐ</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- QRスキャンモーダル -->
+  <div id="qr-modal" class="modal-overlay">
+    <div class="qr-box">
+      <p class="qr-box-title">📷 QRコードをスキャン</p>
+      <div id="qr-reader"></div>
+      <p class="qr-tip">施設に掲示されているQRコードにカメラを向けてください</p>
+      <button class="btn-qr-close" onclick="closeQRScanner()">キャンセル</button>
+    </div>
+  </div>
+
+  <!-- スタンプカードモーダル -->
+  <div id="sc-overlay" class="sc-overlay">
+    <div class="sc-card">
+      <div class="sc-logo">🔥</div>
+      <div class="sc-title">暑熱順化スタンプカード</div>
+      <div class="sc-period">2026年6月1日（月）〜6月30日（火）</div>
+      <div id="sc-status"></div>
+      <div id="sc-stamp-row" class="sc-stamp-row"></div>
+      <div id="sc-id" class="sc-id"></div>
+      <button id="sc-claim-btn" class="btn-sc-claim" onclick="markAsClaimed()" style="display:none;">
+        ✂️ スタッフにもぎってもらう
+      </button>
+      <button class="btn-sc-close" onclick="closeStampCard()">閉じる</button>
+    </div>
+  </div>
+
+  <!-- フラッシュ -->
+  <div id="flash" class="flash"></div>
+
+  <!-- ===== ヘッダー ===== -->
+  <header class="header">
+    <img src="084445.png" alt="サウナで始める暑熱順化 7〜10日間で、夏に強い身体へ。" class="header-img">
+  </header>
+
+  <!-- キャンペーン帯 -->
+  <div class="campaign-strip">
+    <span>6/1〜6/30 デジタルスタンプラリー開催！</span>｜目指せスタンプ達成！サウナハット・ボトルキャップ進呈中 <span style="font-size:0.78rem;opacity:0.85;">※先着順</span>
+  </div>
+
+  <div class="main">
+
+    <!-- ===== 暑熱順化とは？ ===== -->
+    <div class="about-section">
+      <div class="about-header">
+        <div class="about-header-title">暑熱順化とは？</div>
+      </div>
+      <div class="about-body">
+        <p>暑熱順化とは、体を少しずつ暑さに慣らすことで<strong>熱中症を予防</strong>する方法です。サウナを活用すると7〜10日間で効果的に暑熱順化が進み、夏の暑さに強い体づくりができます。</p>
+        <div class="about-steps">
+          <div class="about-step">
+            <img src="11111.png" alt="サウナで発汗促進" class="about-step-img">
+          </div>
+          <div class="about-step">
+            <img src="11112.png" alt="体温調節機能アップ" class="about-step-img">
+          </div>
+          <div class="about-step">
+            <img src="11114.png" alt="血管・心臓強化" class="about-step-img">
+          </div>
+          <div class="about-step">
+            <img src="11113.png" alt="夏の暑さに強くなる！" class="about-step-img">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 7〜10日間チャレンジ ===== -->
+    <div class="challenge-section">
+      <div class="challenge-header">
+        <div class="challenge-header-title">7〜10日間の暑熱順化チャレンジ</div>
+        <div class="challenge-header-sub">← スワイプして全ステップを確認できます</div>
+      </div>
+      <div class="day-track" id="day-track">
+        <!-- JS で生成 -->
+      </div>
+    </div>
+
+    <!-- ===== スタンプ取得状況 ===== -->
+    <div class="status-card" id="status-card">
+      <div class="status-header">
+        <div class="status-header-title">スタンプ取得状況</div>
+      </div>
+      <div class="status-body" id="status-body">
+        <div style="text-align:center;color:#bbb;padding:14px;font-size:0.9rem;">読み込み中...</div>
+      </div>
+    </div>
+
+    <!-- ===== ボタン ===== -->
+    <div class="btn-area">
+      <button class="btn-primary" onclick="openQRScanner()">
+        <img src="22225.png" alt="" style="width:28px;height:28px;object-fit:contain;vertical-align:middle;"> QRコードを読み込む
+      </button>
+      <button class="btn-secondary" onclick="showStampCard()">
+        <img src="22226.png" alt="" style="width:28px;height:28px;object-fit:contain;vertical-align:middle;"> スタンプカードを表示する
+      </button>
+    </div>
+
+    <!-- ===== 参加方法 ===== -->
+    <div class="howto-section">
+      <div class="howto-header">
+        <div class="howto-header-title">参加方法</div>
+      </div>
+      <div class="howto-body">
+        <div class="howto-step">
+          <div class="howto-step-num">1</div>
+          <div class="howto-step-body">
+            <div class="howto-step-title">参加サウナ施設を訪問・サウナを体験</div>
+            <div class="howto-step-desc">下記の参加施設でサウナを利用してください</div>
+          </div>
+        </div>
+        <div class="howto-step">
+          <div class="howto-step-num">2</div>
+          <div class="howto-step-body">
+            <div class="howto-step-title">施設のQRコードをスキャン</div>
+            <div class="howto-step-desc">「QRコードを読み込む」ボタンで施設のQRコードをスキャン</div>
+          </div>
+        </div>
+        <div class="howto-step">
+          <div class="howto-step-num">3</div>
+          <div class="howto-step-body">
+            <div class="howto-step-title">スタンプ5個でプレゼントGET！</div>
+            <div class="howto-step-desc">異なる施設を5つ訪問してスタンプを集めましょう</div>
+          </div>
+        </div>
+        <div class="howto-step">
+          <div class="howto-step-num">4</div>
+          <div class="howto-step-body">
+            <div class="howto-step-title">スタンプカードを施設スタッフに提示</div>
+            <div class="howto-step-desc">「スタンプカードを表示する」ボタンを押してスタッフに見せる</div>
+          </div>
+        </div>
+        <div class="howto-note">
+          ※ 1日1スタンプのみ取得できます（1日に複数施設を巡っても1スタンプ）<br>
+          ※ プレゼントは参加施設にて数量限定配布。なくなり次第終了<br>
+          ※ キャンペーン期間外（6月1日〜30日以外）はスキャン不可
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 参加施設一覧 ===== -->
+    <div class="facility-section">
+      <div class="facility-section-header">
+        <div class="facility-section-title">参加施設一覧</div>
+      </div>
+      <div class="facility-list" id="facility-list">
+        <div style="text-align:center;color:#bbb;padding:10px;font-size:0.85rem;">読み込み中...</div>
+      </div>
+    </div>
+
+  </div><!-- /main -->
+
+  <!-- フッター -->
+  <footer class="footer">
+    <strong>暑熱順化スタンプラリー2026</strong><br>
+    開催期間：2026年6月1日（月）〜6月30日（火）<br>
+    プレゼントは参加施設にて数量限定配布（なくなり次第終了）<br>
+    <span style="font-size:0.65rem;">※止むを得ず内容を変更または中止する場合がございます。</span>
+  </footer>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyB_KNYtGakL0KNUAddGPRlbw7gEagt-r4M",
+      authDomain: "sauna-stamp-app.firebaseapp.com",
+      projectId: "sauna-stamp-app",
+      storageBucket: "sauna-stamp-app.appspot.com",
+      messagingSenderId: "SENDER_ID",
+      appId: "1:372299514714:web:6d5279a1f8094a2ffca963"
+    };
+
+    const app  = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db   = getFirestore(app);
+
+    // ===== キャンペーン設定 =====
+    const CAMPAIGN_START    = new Date('2026-06-01T00:00:00');
+    const CAMPAIGN_END      = new Date('2026-06-30T23:59:59');
+    const TOTAL_STAMPS      = 10;
+    const PRIZE_MILESTONES  = [
+      { count: 1,  prize: "イオンウォーター",          label: "1個達成" },
+      { count: 5,  prize: "イオンウォーター",          label: "5個達成" },
+      { count: 10, prize: "サウナハット・ボトルキャップ", label: "10個達成" },
+    ];
+
+    // ===== DAYチャレンジデータ =====
+    const DAY_STEPS = [
+      { day: "DAY 1",    img: "DAY1.png" },
+      { day: "DAY 2",    img: "DAY2.png" },
+      { day: "DAY 3",    img: "DAY3.png" },
+      { day: "DAY 4",    img: "DAY4.png" },
+      { day: "DAY 5",    img: "DAY5.png" },
+      { day: "DAY 6",    img: "DAY6.png" },
+      { day: "DAY 7-10", img: "DAY7-10.png" },
+    ];
+
+    // ===== 施設データ =====
+    // ⚠️ qrSecret の文字列を各施設のQRコード（印刷物）に使用してください
+    const facilities = [
+      { name: "サウナ施設A",  icon: "22222.png", qrSecret: "SHONETSU2026_F00_K9X7MP2Q" },
+      { name: "サウナ施設B",  icon: "22223.png", qrSecret: "SHONETSU2026_F01_R3T8NL5W" },
+      { name: "サウナ施設C",  icon: "22224.png", qrSecret: "SHONETSU2026_F02_Z6V1JH4Y" },
+      { name: "サウナ施設D",  icon: "22222.png", qrSecret: "SHONETSU2026_F03_B2W5CM8E" },
+      { name: "サウナ施設E",  icon: "22224.png", qrSecret: "SHONETSU2026_F04_P7A3XK6D" },
+      { name: "サウナ施設F",  icon: "22223.png", qrSecret: "SHONETSU2026_F05_Q1N9RZ4F" },
+      { name: "サウナ施設G",  icon: "22224.png", qrSecret: "SHONETSU2026_F06_L8G2YT7S" },
+      { name: "サウナ施設H",  icon: "22222.png", qrSecret: "SHONETSU2026_F07_H4C6WM1U" },
+    ];
+
+    const qrMap = new Map(facilities.map((f, i) => [f.qrSecret, i]));
+
+    // ===== 状態 =====
+    let myCode             = null;
+    let currentStamps      = [];
+    let claimedMilestones  = [];  // 例: [1, 5]
+    let isProcessing       = false;
+    let qrScanner          = null;
+
+    // ===== 引き継ぎコード生成 =====
+    function generateCode() {
+      const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+      let code = '';
+      for (let i = 0; i < 8; i++) {
+        if (i === 4) code += '-';
+        code += chars[Math.floor(Math.random() * chars.length)];
+      }
+      return code;
+    }
+
+    // ===== Firebase認証 + コード初期化 =====
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        // localStorageからコード取得 or 新規発行
+        myCode = localStorage.getItem('shonetsu2026_code');
+        if (!myCode) {
+          myCode = generateCode();
+          localStorage.setItem('shonetsu2026_code', myCode);
+        }
+        await loadData();
+      } else {
+        try { await signInAnonymously(auth); }
+        catch(e) { window.showNotify("初期化に失敗しました。通信状態を確認してください。", "⚠️"); }
+      }
+    });
+
+    // ===== データ読み込み =====
+    async function loadData() {
+      try {
+        const snap = await getDoc(doc(db, "shonetsu2026", myCode));
+        if (snap.exists()) {
+          currentStamps     = snap.data().stamps            || [];
+          claimedMilestones = snap.data().claimedMilestones || [];
+        } else {
+          currentStamps     = [];
+          claimedMilestones = [];
+        }
+      } catch(e) { console.error(e); }
+      renderUI();
+    }
+
+    // ===== UI描画 =====
+    function renderUI() {
+      renderDayTrack();
+      renderStatusCard();
+      renderFacilityList();
+    }
+
+    // DAYトラック
+    function renderDayTrack() {
+      const track = document.getElementById('day-track');
+      track.innerHTML = DAY_STEPS.map((step, i) => {
+        const stamped = i < currentStamps.length;
+        return `<div class="day-card${stamped ? ' stamped' : ''}">
+          <div class="day-label">${step.day}</div>
+          <img src="${step.img}" alt="${step.day}" class="day-img${stamped ? '' : ' day-img-empty'}">
+        </div>`;
+      }).join('');
+    }
+
+    // スタンプ状況
+    function renderStatusCard() {
+      const body  = document.getElementById('status-body');
+      const count = currentStamps.length;
+
+      // 10スロット（5×2）
+      let slotsHTML = '';
+      for (let i = 0; i < TOTAL_STAMPS; i++) {
+        const filled = i < count;
+        const milestone = PRIZE_MILESTONES.find(m => m.count === i + 1);
+        slotsHTML += `<div class="stamp-slot ${filled ? 'filled' : ''} ${milestone ? 'milestone-slot' : ''}">
+          ${filled ? '🔥' : ''}
+          <span class="slot-day">${i + 1}</span>
+        </div>`;
+      }
+
+      const claimable = PRIZE_MILESTONES.filter(m => count >= m.count && !claimedMilestones.includes(m.count));
+      let actionHTML = '';
+      if (claimable.length > 0) {
+        actionHTML = `<div class="status-msg-prize">
+          <div class="msg-title">🎉 プレゼント受け取り可能！</div>
+          <div class="msg-sub">「スタンプカードを表示する」を押して<br>施設スタッフに提示してください</div>
+        </div>`;
+      } else if (claimedMilestones.includes(10)) {
+        actionHTML = `<div class="status-msg-claimed">✅ 全プレゼント受け取り済み<br><small>ご参加ありがとうございました！</small></div>`;
+      } else {
+        const next = PRIZE_MILESTONES.find(m => !claimedMilestones.includes(m.count) && count < m.count);
+        if (next) actionHTML = `<div class="status-msg-progress">
+          次のプレゼントまであと <strong>${next.count - count}個</strong>のスタンプ！
+        </div>`;
+      }
+
+      body.innerHTML = `
+        <div class="count-row">
+          <span class="count-num">${count}</span>
+          <span class="count-denom"> / ${TOTAL_STAMPS}個</span>
+        </div>
+        <div class="count-label">スタンプ数</div>
+        <div class="status-stamp-grid">${slotsHTML}</div>
+        ${actionHTML}
+        <div class="code-box">
+          <div class="code-box-label">🔑 引き継ぎコード（スクリーンショットで保存してください）</div>
+          <div class="code-value">${myCode || '------'}</div>
+          <div class="code-note">機種変更やブラウザ変更後もこのコードを入力すればスタンプが復元できます</div>
+          <button class="btn-transfer" onclick="openTransferModal()">別のコードで引き継ぐ</button>
+        </div>
+      `;
+    }
+
+    // 施設一覧
+    function renderFacilityList() {
+      document.getElementById('facility-list').innerHTML =
+        facilities.map((f, i) => {
+          const has = currentStamps.some(s => s.facilityIndex === i);
+          return `<div class="facility-item">
+            <img src="${f.icon}" alt="" class="facility-icon-img">
+            <div class="facility-name">${f.name}</div>
+            <div class="facility-stamp-icon">
+              ${has ? '🔥' : '<span class="facility-empty"></span>'}
+            </div>
+          </div>`;
+        }).join('');
+    }
+
+    // ===== QRスキャナー =====
+    window.openQRScanner = async function() {
+      const now = new Date();
+      if (now < CAMPAIGN_START) {
+        window.showNotify("キャンペーンはまだ始まっていません。\n開始日：2026年6月1日（月）", "📅");
+        return;
+      }
+      if (now > CAMPAIGN_END) {
+        window.showNotify("キャンペーン期間が終了しました。\n期間：2026年6月1日〜30日\nご参加ありがとうございました。", "📅");
+        return;
+      }
+      document.getElementById('qr-modal').classList.add('active');
+      qrScanner = new Html5Qrcode("qr-reader");
+      qrScanner.start(
+        { facingMode: "environment" },
+        { fps: 10, qrbox: { width: 240, height: 240 } },
+        onQRSuccess,
+        () => {}
+      ).catch(() => {
+        document.getElementById('qr-modal').classList.remove('active');
+        window.showNotify("カメラへのアクセスが拒否されました。\nブラウザの設定でカメラの使用を許可してください。", "📷");
+      });
+    };
+
+    window.closeQRScanner = async function() {
+      if (qrScanner) {
+        try { await qrScanner.stop(); } catch(e) {}
+        qrScanner = null;
+      }
+      document.getElementById('qr-modal').classList.remove('active');
+    };
+
+    async function onQRSuccess(decodedText) {
+      if (isProcessing) return;
+      isProcessing = true;
+      await window.closeQRScanner();
+
+      const idx = qrMap.get(decodedText.trim());
+      if (idx === undefined) {
+        window.showNotify("このQRコードはキャンペーン対象外です。\n参加施設に掲示されているQRコードを読み込んでください。", "❌");
+        isProcessing = false;
+        return;
+      }
+
+      // 本日スタンプ取得済みチェック
+      const today = new Date().toISOString().split('T')[0];
+      const alreadyToday = currentStamps.some(s => s.date === today);
+      if (alreadyToday) {
+        window.showNotify("本日のスタンプは既に取得済みです。\n1日1スタンプまでとなります。\n明日また参加施設をお訪ねください！", "ℹ️");
+        isProcessing = false;
+        return;
+      }
+
+      try {
+        currentStamps.push({ facilityIndex: idx, date: today });
+        await setDoc(doc(db, "shonetsu2026", myCode), {
+          stamps: currentStamps, claimedMilestones, updatedAt: new Date().toISOString()
+        });
+        renderUI();
+        showFlash(`🔥 ${facilities[idx].name} のスタンプを取得！`);
+        const newCount = currentStamps.length;
+        const newlyReachable = PRIZE_MILESTONES.find(
+          m => m.count === newCount && !claimedMilestones.includes(m.count)
+        );
+        if (newlyReachable) {
+          setTimeout(() => window.showNotify(
+            `🎉 おめでとうございます！\nスタンプ${newCount}個達成！\n\n「スタンプカードを表示する」を押して\n施設スタッフに見せると\n「${newlyReachable.prize}」がもらえます！`,
+            "🎁"
+          ), 800);
+        }
+      } catch(e) {
+        currentStamps.pop();
+        window.showNotify("保存に失敗しました。通信状態を確認してください。", "⚠️");
+      } finally {
+        isProcessing = false;
+      }
+    }
+
+    // ===== スタンプカード表示 =====
+    window.showStampCard = function() {
+      const row      = document.getElementById('sc-stamp-row');
+      const statusEl = document.getElementById('sc-status');
+      const claimBtn = document.getElementById('sc-claim-btn');
+      const idEl     = document.getElementById('sc-id');
+      const count    = currentStamps.length;
+
+      let sHTML = '';
+      for (let i = 0; i < TOTAL_STAMPS; i++) {
+        const f = i < count;
+        const ms = PRIZE_MILESTONES.find(m => m.count === i + 1);
+        sHTML += `<div class="sc-slot ${f ? 'filled' : ''} ${ms ? 'milestone-slot' : ''}">
+          ${f ? '🔥' : ''}<span class="sc-day">${ms ? '🎁' : i + 1}</span>
+        </div>`;
+      }
+      row.innerHTML = sHTML;
+
+      const claimable = PRIZE_MILESTONES.filter(m => count >= m.count && !claimedMilestones.includes(m.count));
+      if (claimable.length > 0) {
+        const prizes = claimable.map(m => m.prize).join('・');
+        statusEl.innerHTML = `<div class="sc-ready">✨ プレゼント受け取り可能！<br><small>${prizes}</small><br>このカードをスタッフに提示してください</div>`;
+        claimBtn.style.display = 'block';
+      } else if (claimedMilestones.includes(10)) {
+        statusEl.innerHTML = `<div style="font-size:.85rem;color:#aaa;margin-bottom:10px;">✅ 全プレゼント受け取り済み</div>`;
+        claimBtn.style.display = 'none';
+      } else {
+        const next = PRIZE_MILESTONES.find(m => !claimedMilestones.includes(m.count) && count < m.count);
+        const label = next ? `次は${next.count}個達成で${next.prize}` : '';
+        statusEl.innerHTML = `<div class="sc-progress">${count} / ${TOTAL_STAMPS} スタンプ<br><small style="color:#bbb;">${label}</small></div>`;
+        claimBtn.style.display = 'none';
+      }
+      idEl.textContent = myCode ? `引き継ぎコード: ${myCode}` : '';
+      document.getElementById('sc-overlay').classList.add('active');
+    };
+
+    window.closeStampCard = function() {
+      document.getElementById('sc-overlay').classList.remove('active');
+    };
+
+    // ===== プレゼント受け取り完了 =====
+    window.markAsClaimed = async function() {
+      if (isProcessing) return;
+      isProcessing = true;
+      const count = currentStamps.length;
+      const newlyClaimable = PRIZE_MILESTONES
+        .filter(m => count >= m.count && !claimedMilestones.includes(m.count))
+        .map(m => m.count);
+      if (newlyClaimable.length === 0) { isProcessing = false; return; }
+      const prevClaimed = [...claimedMilestones];
+      try {
+        claimedMilestones = [...claimedMilestones, ...newlyClaimable];
+        await setDoc(doc(db, "shonetsu2026", myCode), {
+          stamps: currentStamps, claimedMilestones, claimedAt: new Date().toISOString()
+        });
+        window.closeStampCard();
+        renderUI();
+        showFlash("🎁 プレゼントの受け取りを完了しました！");
+        const allDone = claimedMilestones.includes(10);
+        setTimeout(() => window.showNotify(
+          allDone
+            ? "ご参加ありがとうございました！\n全プレゼントを受け取りました🎉\n今年の夏も暑熱順化で\nお体をしっかり準備しましょう🔥"
+            : "受け取り完了しました！\n引き続きスタンプを集めて\n次のプレゼントを目指しましょう！",
+          "🎉"
+        ), 600);
+      } catch(e) {
+        claimedMilestones = prevClaimed;
+        window.showNotify("処理に失敗しました。通信状態を確認してください。", "⚠️");
+      } finally {
+        isProcessing = false;
+      }
+    };
+
+    // ===== 引き継ぎ処理 =====
+    window.openTransferModal = function() {
+      document.getElementById('transfer-input').value = '';
+      document.getElementById('transfer-error').textContent = '';
+      document.getElementById('transfer-overlay').classList.add('active');
+      setTimeout(() => document.getElementById('transfer-input').focus(), 100);
+    };
+
+    window.closeTransferModal = function() {
+      document.getElementById('transfer-overlay').classList.remove('active');
+    };
+
+    window.formatTransferInput = function(el) {
+      let val = el.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+      if (val.length > 4) val = val.slice(0, 4) + '-' + val.slice(4, 8);
+      el.value = val;
+    };
+
+    window.submitTransfer = async function() {
+      const code = document.getElementById('transfer-input').value.trim().toUpperCase();
+      const errorEl = document.getElementById('transfer-error');
+
+      if (!/^[A-Z0-9]{4}-[A-Z0-9]{4}$/.test(code)) {
+        errorEl.textContent = '正しい形式で入力してください（例：ABCD-1234）';
+        return;
+      }
+      if (code === myCode) {
+        errorEl.textContent = '現在お使いのコードと同じです。';
+        return;
+      }
+
+      errorEl.textContent = '確認中...';
+      try {
+        const snap = await getDoc(doc(db, "shonetsu2026", code));
+        if (!snap.exists()) {
+          errorEl.textContent = 'このコードは存在しません。入力内容を確認してください。';
+          return;
+        }
+        const snapClaimed = snap.data().claimedMilestones || [];
+        if (snapClaimed.includes(10)) {
+          errorEl.textContent = 'このコードは全プレゼント受け取り済みのため引き継ぎできません。';
+          return;
+        }
+        // 引き継ぎ実行
+        myCode = code;
+        localStorage.setItem('shonetsu2026_code', myCode);
+        currentStamps     = snap.data().stamps            || [];
+        claimedMilestones = snap.data().claimedMilestones || [];
+        window.closeTransferModal();
+        renderUI();
+        showFlash('✅ スタンプを引き継ぎました！');
+      } catch(e) {
+        errorEl.textContent = '通信エラーが発生しました。再度お試しください。';
+      }
+    };
+
+    // ===== 通知 =====
+    window.showNotify = function(msg, icon = "ℹ️") {
+      document.getElementById('notify-icon').textContent = icon;
+      document.getElementById('notify-msg').textContent  = msg;
+      document.getElementById('notify-overlay').classList.add('active');
+    };
+    window.closeNotify = function() {
+      document.getElementById('notify-overlay').classList.remove('active');
+    };
+
+    function showFlash(msg) {
+      const el = document.getElementById('flash');
+      el.textContent = msg;
+      el.classList.add('show');
+      setTimeout(() => el.classList.remove('show'), 3200);
+    }
+  </script>
+</body>
+</html>
