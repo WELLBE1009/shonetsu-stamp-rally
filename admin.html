@@ -100,7 +100,9 @@
   <div class="modal-overlay" id="reset-modal">
     <div class="modal-box">
       <h3>⚠️ 本当にリセットしますか？</h3>
-      <p>全参加者のスタンプデータが完全に削除されます。<br>この操作は取り消せません。</p>
+      <p>全参加者のスタンプデータが完全に削除されます。<br>この操作は取り消せません。<br><br>確認のためパスワードを入力してください。</p>
+      <input type="password" id="reset-pw-input" placeholder="パスワード" maxlength="10" style="width:100%;padding:10px;border-radius:8px;border:1.5px solid #333;background:#0f3460;color:#fff;font-size:1rem;text-align:center;letter-spacing:4px;margin-bottom:8px;">
+      <div style="color:#ff6b6b;font-size:0.78rem;min-height:18px;margin-bottom:12px;" id="reset-pw-error"></div>
       <div class="modal-btns">
         <button class="btn-cancel" onclick="closeResetModal()">キャンセル</button>
         <button class="btn-confirm-reset" id="confirm-reset-btn" onclick="executeReset()">削除する</button>
@@ -218,10 +220,20 @@
         btn.textContent = '🔄 データを更新';
       }
     };
-    window.openResetModal  = () => document.getElementById('reset-modal').classList.add('active');
+    window.openResetModal = () => {
+      document.getElementById('reset-pw-input').value = '';
+      document.getElementById('reset-pw-error').textContent = '';
+      document.getElementById('reset-modal').classList.add('active');
+      setTimeout(() => document.getElementById('reset-pw-input').focus(), 100);
+    };
     window.closeResetModal = () => document.getElementById('reset-modal').classList.remove('active');
 
     window.executeReset = async function() {
+      const pw = document.getElementById('reset-pw-input').value;
+      if (pw !== CORRECT_PW) {
+        document.getElementById('reset-pw-error').textContent = 'パスワードが違います';
+        return;
+      }
       const btn = document.getElementById('confirm-reset-btn');
       btn.disabled = true;
       btn.textContent = '削除中...';
