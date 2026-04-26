@@ -1075,14 +1075,13 @@
     // ===== 施設データ =====
     // ⚠️ qrSecret の文字列を各施設のQRコード（印刷物）に使用してください
     const facilities = [
-      { name: "サウナ施設A",  icon: "22222.png", qrSecret: "SHONETSU2026_F00_K9X7MP2Q" },
-      { name: "サウナ施設B",  icon: "22223.png", qrSecret: "SHONETSU2026_F01_R3T8NL5W" },
-      { name: "サウナ施設C",  icon: "22224.png", qrSecret: "SHONETSU2026_F02_Z6V1JH4Y" },
-      { name: "サウナ施設D",  icon: "22222.png", qrSecret: "SHONETSU2026_F03_B2W5CM8E" },
-      { name: "サウナ施設E",  icon: "22224.png", qrSecret: "SHONETSU2026_F04_P7A3XK6D" },
-      { name: "サウナ施設F",  icon: "22223.png", qrSecret: "SHONETSU2026_F05_Q1N9RZ4F" },
-      { name: "サウナ施設G",  icon: "22224.png", qrSecret: "SHONETSU2026_F06_L8G2YT7S" },
-      { name: "サウナ施設H",  icon: "22222.png", qrSecret: "SHONETSU2026_F07_H4C6WM1U" },
+      { name: "ウェルビー福岡",              url: "https://www.wellbe.co.jp/fukuoka/",                     icon: "22222.png", qrSecret: "SHONETSU2026_F00_K9X7MP2Q" },
+      { name: "おとぎの杜",                  url: "https://otogi-mori.com/",                               icon: "22223.png", qrSecret: "SHONETSU2026_F01_R3T8NL5W" },
+      { name: "小倉サウナ",                  url: "https://www.totonoikokura.com/",                        icon: "22224.png", qrSecret: "SHONETSU2026_F02_Z6V1JH4Y" },
+      { name: "筑紫の湯",                    url: "https://www.chikushinosato.co.jp/onsen.html",           icon: "22222.png", qrSecret: "SHONETSU2026_F03_B2W5CM8E" },
+      { name: "筑紫野 天拝の郷",             url: "https://tenpainosato.com/",                            icon: "22224.png", qrSecret: "SHONETSU2026_F04_P7A3XK6D" },
+      { name: "天然温泉コロナの湯 小倉店",   url: "https://www.korona.co.jp/onsen/kok/",                  icon: "22223.png", qrSecret: "SHONETSU2026_F05_Q1N9RZ4F" },
+      { name: "游心の湯",                    url: "https://yushin-yu.com/",                               icon: "22224.png", qrSecret: "SHONETSU2026_F06_L8G2YT7S" },
     ];
 
     const qrMap = new Map(facilities.map((f, i) => [f.qrSecret, i]));
@@ -1211,7 +1210,7 @@
           const has = currentStamps.some(s => s.facilityIndex === i);
           return `<div class="facility-item">
             <img src="${f.icon}" alt="" class="facility-icon-img">
-            <div class="facility-name">${f.name}</div>
+            <div class="facility-name"><a href="${f.url}" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline dotted;">${f.name}</a></div>
             <div class="facility-stamp-icon">
               ${has ? '🔥' : '<span class="facility-empty"></span>'}
             </div>
