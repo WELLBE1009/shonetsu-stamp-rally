@@ -47,6 +47,25 @@
 
     .loading { text-align: center; color: #888; font-size: 0.85rem; padding: 40px; }
     .updated-at { text-align: center; font-size: 0.7rem; color: #555; margin-top: 16px; }
+
+    /* リセットエリア */
+    .reset-area { margin-top: 40px; border: 1.5px solid #3a1a1a; border-radius: 14px; padding: 20px; text-align: center; }
+    .reset-area h3 { color: #ff6b6b; font-size: 0.9rem; margin-bottom: 8px; }
+    .reset-area p { font-size: 0.75rem; color: #888; margin-bottom: 16px; line-height: 1.6; }
+    .btn-reset { padding: 10px 28px; background: transparent; color: #ff6b6b; border: 1.5px solid #ff6b6b; border-radius: 8px; font-size: 0.85rem; font-weight: bold; cursor: pointer; }
+    .btn-reset:hover { background: #ff6b6b; color: #fff; }
+    .btn-reset:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    /* 確認モーダル */
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); justify-content: center; align-items: center; z-index: 100; }
+    .modal-overlay.active { display: flex; }
+    .modal-box { background: #16213e; border-radius: 16px; padding: 28px 24px; width: 90%; max-width: 340px; text-align: center; }
+    .modal-box h3 { color: #ff6b6b; margin-bottom: 12px; }
+    .modal-box p { font-size: 0.82rem; color: #aaa; margin-bottom: 20px; line-height: 1.6; }
+    .modal-btns { display: flex; gap: 10px; }
+    .modal-btns button { flex: 1; padding: 12px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; font-size: 0.9rem; }
+    .btn-cancel { background: #333; color: #aaa; }
+    .btn-confirm-reset { background: #ff6b6b; color: #fff; }
   </style>
 </head>
 <body>
@@ -69,11 +88,30 @@
     <button class="btn-reload" id="reload-btn" onclick="loadStats()">🔄 データを更新</button>
     <div id="dash-content"><div class="loading">読み込み中...</div></div>
     <div class="updated-at" id="updated-at"></div>
+
+    <div class="reset-area">
+      <h3>⚠️ データリセット</h3>
+      <p>全参加者のスタンプデータを削除します。<br>この操作は取り消せません。<br>キャンペーン開始前（6月1日）に実施してください。</p>
+      <button class="btn-reset" id="reset-btn" onclick="openResetModal()">テストデータをリセットする</button>
+    </div>
+  </div>
+
+  <!-- 確認モーダル -->
+  <div class="modal-overlay" id="reset-modal">
+    <div class="modal-box">
+      <h3>⚠️ 本当にリセットしますか？</h3>
+      <p>全参加者のスタンプデータが完全に削除されます。<br>この操作は取り消せません。</p>
+      <div class="modal-btns">
+        <button class="btn-cancel" onclick="closeResetModal()">キャンセル</button>
+        <button class="btn-confirm-reset" id="confirm-reset-btn" onclick="executeReset()">削除する</button>
+      </div>
+    </div>
   </div>
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getFirestore, collection, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyBxOMNoRmfXNW0_revx_l0hTHvL8iL6uIk",
@@ -84,8 +122,10 @@
       appId: "1:689875777984:web:de9c60d9438caefeadf025"
     };
 
-    const app = initializeApp(firebaseConfig);
-    const db  = getFirestore(app);
+    const app  = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db   = getFirestore(app);
+    signInAnonymously(auth).catch(e => console.error(e));
 
     const CORRECT_PW = "10842";
 
@@ -176,6 +216,29 @@
       } finally {
         btn.disabled = false;
         btn.textContent = '🔄 データを更新';
+      }
+    };
+    window.openResetModal  = () => document.getElementById('reset-modal').classList.add('active');
+    window.closeResetModal = () => document.getElementById('reset-modal').classList.remove('active');
+
+    window.executeReset = async function() {
+      const btn = document.getElementById('confirm-reset-btn');
+      btn.disabled = true;
+      btn.textContent = '削除中...';
+      try {
+        const snap = await getDocs(collection(db, "shonetsu2026"));
+        const deletes = snap.docs.map(d => deleteDoc(doc(db, "shonetsu2026", d.id)));
+        await Promise.all(deletes);
+        window.closeResetModal();
+        document.getElementById('dash-content').innerHTML =
+          '<div class="loading" style="color:#4caf50;">✅ ' + snap.size + '件のデータを削除しました。</div>';
+        document.getElementById('updated-at').textContent = '';
+      } catch(e) {
+        alert('削除に失敗しました: ' + e.message);
+        console.error(e);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = '削除する';
       }
     };
   </script>
