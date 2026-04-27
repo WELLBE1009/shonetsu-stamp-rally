@@ -161,6 +161,7 @@
         const stamps2plus  = docs.filter(d => (d.stamps || []).length >= 2).length;
         const claimed1     = docs.filter(d => (d.claimedMilestones || []).includes(1)).length;
         const claimed3     = docs.filter(d => (d.claimedMilestones || []).includes(3)).length;
+        const claimed5     = docs.filter(d => (d.claimedMilestones || []).includes(5)).length;
         const claimed7     = docs.filter(d => (d.claimedMilestones || []).includes(7)).length;
         const claimed10    = docs.filter(d => (d.claimedMilestones || []).includes(10)).length;
         const totalPrizes  = docs.reduce((sum, d) => sum + (d.claimedMilestones || []).length, 0);
@@ -196,6 +197,7 @@
             <tr><th>マイルストーン</th><th>景品</th><th>受け取り人数</th><th>受け取り率</th></tr>
             <tr><td>1個達成</td><td>イオンウォーター</td><td>${claimed1}人</td><td>${pct(claimed1)}%</td></tr>
             <tr><td>3個達成</td><td>イオンウォーター</td><td>${claimed3}人</td><td>${pct(claimed3)}%</td></tr>
+            <tr><td>5個達成</td><td>イオンウォーター</td><td>${claimed5}人</td><td>${pct(claimed5)}%</td></tr>
             <tr><td>7個達成</td><td>サウナハット・ボトルキャップ</td><td>${claimed7}人</td><td>${pct(claimed7)}%</td></tr>
             <tr><td>10個達成</td><td>暑熱順化完成！</td><td>${claimed10}人</td><td>${pct(claimed10)}%</td></tr>
           </table>
