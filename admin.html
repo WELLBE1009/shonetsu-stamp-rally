@@ -163,7 +163,7 @@
         const claimed3     = docs.filter(d => (d.claimedMilestones || []).includes(3)).length;
         const claimed5     = docs.filter(d => (d.claimedMilestones || []).includes(5)).length;
         const claimed7     = docs.filter(d => (d.claimedMilestones || []).includes(7)).length;
-        const claimed10    = docs.filter(d => (d.claimedMilestones || []).includes(10)).length;
+        const completed    = docs.filter(d => (d.stamps || []).length >= 10).length;
         const totalPrizes  = docs.reduce((sum, d) => sum + (d.claimedMilestones || []).length, 0);
 
         const pct = (n) => total > 0 ? Math.round(n / total * 100) : 0;
@@ -181,9 +181,9 @@
               <div class="card-unit">件</div>
             </div>
             <div class="card">
-              <div class="card-label">最終プレゼント受け取り率</div>
-              <div class="card-value">${pct(claimed10)}</div>
-              <div class="card-unit">% （${claimed10}人 / ${total}人）</div>
+              <div class="card-label">暑熱順化完成率</div>
+              <div class="card-value">${pct(completed)}</div>
+              <div class="card-unit">% （${completed}人 / ${total}人）</div>
             </div>
             <div class="card">
               <div class="card-label">2回以上の構成比</div>
@@ -199,7 +199,7 @@
             <tr><td>3個達成</td><td>イオンウォーター</td><td>${claimed3}人</td><td>${pct(claimed3)}%</td></tr>
             <tr><td>5個達成</td><td>イオンウォーター</td><td>${claimed5}人</td><td>${pct(claimed5)}%</td></tr>
             <tr><td>7個達成</td><td>サウナハット・ボトルキャップ</td><td>${claimed7}人</td><td>${pct(claimed7)}%</td></tr>
-            <tr><td>10個達成</td><td>暑熱順化完成！</td><td>${claimed10}人</td><td>${pct(claimed10)}%</td></tr>
+            <tr><td>10個達成（完成）</td><td>暑熱順化完成！</td><td>${completed}人</td><td>${pct(completed)}%</td></tr>
           </table>
 
           <p class="section-title">スタンプ数の分布</p>

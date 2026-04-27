@@ -1056,11 +1056,10 @@
     const CAMPAIGN_END      = new Date('2026-06-30T23:59:59');
     const TOTAL_STAMPS      = 10;
     const PRIZE_MILESTONES  = [
-      { count: 1,  prize: "イオンウォーター",           label: "1個達成"  },
-      { count: 3,  prize: "イオンウォーター",           label: "3個達成"  },
-      { count: 5,  prize: "イオンウォーター",           label: "5個達成"  },
-      { count: 7,  prize: "サウナハット・ボトルキャップ", label: "7個達成"  },
-      { count: 10, prize: "暑熱順化完成！",             label: "10個達成" },
+      { count: 1,  prize: "イオンウォーター",           label: "1個達成" },
+      { count: 3,  prize: "イオンウォーター",           label: "3個達成" },
+      { count: 5,  prize: "イオンウォーター",           label: "5個達成" },
+      { count: 7,  prize: "サウナハット・ボトルキャップ", label: "7個達成" },
     ];
 
     // ===== DAYチャレンジデータ =====
@@ -1179,8 +1178,8 @@
           <div class="msg-title">🎉 プレゼント受け取り可能！</div>
           <div class="msg-sub">「スタンプカードを表示する」を押して<br>施設スタッフに提示してください</div>
         </div>`;
-      } else if (claimedMilestones.includes(10)) {
-        actionHTML = `<div class="status-msg-claimed">✅ 全プレゼント受け取り済み<br><small>ご参加ありがとうございました！</small></div>`;
+      } else if (count >= TOTAL_STAMPS) {
+        actionHTML = `<div class="status-msg-claimed">🏆 暑熱順化完成！<br><small>ご参加ありがとうございました！</small></div>`;
       } else {
         const next = PRIZE_MILESTONES.find(m => !claimedMilestones.includes(m.count) && count < m.count);
         if (next) actionHTML = `<div class="status-msg-progress">
@@ -1322,8 +1321,8 @@
         const prizes = claimable.map(m => m.prize).join('・');
         statusEl.innerHTML = `<div class="sc-ready">✨ プレゼント受け取り可能！<br><small>${prizes}</small><br>このカードをスタッフに提示してください</div>`;
         claimBtn.style.display = 'block';
-      } else if (claimedMilestones.includes(10)) {
-        statusEl.innerHTML = `<div style="font-size:.85rem;color:#aaa;margin-bottom:10px;">✅ 全プレゼント受け取り済み</div>`;
+      } else if (count >= TOTAL_STAMPS) {
+        statusEl.innerHTML = `<div style="font-size:1rem;font-weight:bold;color:#fdd000;margin-bottom:10px;">🏆 暑熱順化完成！</div>`;
         claimBtn.style.display = 'none';
       } else {
         const next = PRIZE_MILESTONES.find(m => !claimedMilestones.includes(m.count) && count < m.count);
@@ -1357,7 +1356,7 @@
         window.closeStampCard();
         renderUI();
         showFlash("🎁 プレゼントの受け取りを完了しました！");
-        const allDone = claimedMilestones.includes(10);
+        const allDone = PRIZE_MILESTONES.every(m => claimedMilestones.includes(m.count));
         setTimeout(() => window.showNotify(
           allDone
             ? "ご参加ありがとうございました！\n全プレゼントを受け取りました🎉\n今年の夏も暑熱順化で\nお体をしっかり準備しましょう🔥"
@@ -1410,9 +1409,9 @@
           errorEl.textContent = 'このコードは存在しません。入力内容を確認してください。';
           return;
         }
-        const snapClaimed = snap.data().claimedMilestones || [];
-        if (snapClaimed.includes(10)) {
-          errorEl.textContent = 'このコードは全プレゼント受け取り済みのため引き継ぎできません。';
+        const snapStamps = snap.data().stamps || [];
+        if (snapStamps.length >= TOTAL_STAMPS) {
+          errorEl.textContent = 'このコードは暑熱順化完成済みのため引き継ぎできません。';
           return;
         }
         // 引き継ぎ実行
