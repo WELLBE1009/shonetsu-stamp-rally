@@ -215,13 +215,14 @@
     .count-denom { font-size: 1.1rem; color: #bbb; }
     .count-label { text-align: center; font-size: 0.78rem; color: #aaa; margin-bottom: 14px; }
     .status-stamp-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
       gap: 8px;
       margin-bottom: 14px;
     }
     .stamp-slot {
-      width: 100%;
+      width: calc(25% - 8px);
       max-width: 64px;
       aspect-ratio: 1;
       border-radius: 50%;
@@ -564,13 +565,14 @@
     }
     .sc-period { font-size: 0.68rem; color: #bbb; margin-bottom: 14px; }
     .sc-stamp-row {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
       gap: 7px;
       margin-bottom: 12px;
     }
     .sc-slot {
-      width: 100%;
+      width: calc(25% - 7px);
       max-width: 58px;
       aspect-ratio: 1;
       border-radius: 50%;
@@ -1054,7 +1056,7 @@
     // ===== キャンペーン設定 =====
     const CAMPAIGN_START    = new Date('2026-06-01T00:00:00');
     const CAMPAIGN_END      = new Date('2026-06-30T23:59:59');
-    const TOTAL_STAMPS      = 10;
+    const TOTAL_STAMPS      = 7;
     const PRIZE_MILESTONES  = [
       { count: 1,  prize: "イオンウォーター",           label: "1個達成" },
       { count: 3,  prize: "イオンウォーター",           label: "3個達成" },

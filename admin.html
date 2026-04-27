@@ -163,7 +163,7 @@
         const claimed3     = docs.filter(d => (d.claimedMilestones || []).includes(3)).length;
         const claimed5     = docs.filter(d => (d.claimedMilestones || []).includes(5)).length;
         const claimed7     = docs.filter(d => (d.claimedMilestones || []).includes(7)).length;
-        const completed    = docs.filter(d => (d.stamps || []).length >= 10).length;
+        const completed    = docs.filter(d => (d.stamps || []).length >= 7).length;
         const totalPrizes  = docs.reduce((sum, d) => sum + (d.claimedMilestones || []).length, 0);
 
         const pct = (n) => total > 0 ? Math.round(n / total * 100) : 0;
@@ -203,7 +203,7 @@
           </table>
 
           <p class="section-title">スタンプ数の分布</p>
-          ${[1,2,3,4,5,6,7,8,9,10].map(n => {
+          ${[1,2,3,4,5,6,7].map(n => {
             const count = docs.filter(d => (d.stamps||[]).length >= n).length;
             return `<div class="bar-row">
               <div class="bar-label">${n}個以上</div>
