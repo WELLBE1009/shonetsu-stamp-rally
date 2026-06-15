@@ -1008,7 +1008,7 @@
           </div>
         </div>
         <div class="howto-note">
-          ※ 1日1スタンプのみ取得できます（1日に複数施設を巡っても1スタンプ）<br>
+          ※ 1日1施設1スタンプまで取得できます（複数施設を巡るとその分スタンプGET）<br>
           ※ プレゼントは参加施設にて数量限定配布。なくなり次第終了<br>
           ※ キャンペーン期間外（6月1日〜30日以外）はスキャン不可
         </div>
@@ -1269,11 +1269,11 @@
         return;
       }
 
-      // 本日スタンプ取得済みチェック
+      // 本日同一施設でスタンプ取得済みチェック
       const today = new Date().toISOString().split('T')[0];
-      const alreadyToday = !isTestMode && currentStamps.some(s => s.date === today);
-      if (alreadyToday) {
-        window.showNotify("本日のスタンプは既に取得済みです。\n1日1スタンプまでとなります。\n明日また参加施設をお訪ねください！", "ℹ️");
+      const alreadyTodayThisFacility = !isTestMode && currentStamps.some(s => s.date === today && s.facilityIndex === idx);
+      if (alreadyTodayThisFacility) {
+        window.showNotify("この施設では本日のスタンプを既に取得済みです。\n1日1施設1スタンプまでとなります。\n他の参加施設や明日また参加施設をお訪ねください！", "ℹ️");
         isProcessing = false;
         return;
       }
