@@ -1270,7 +1270,7 @@
       }
 
       // 本日同一施設でスタンプ取得済みチェック
-      const today = new Date().toISOString().split('T')[0];
+      const today = new Date(Date.now() + 9 * 60 * 60 * 1000).toISOString().split('T')[0];
       const alreadyTodayThisFacility = !isTestMode && currentStamps.some(s => s.date === today && s.facilityIndex === idx);
       if (alreadyTodayThisFacility) {
         window.showNotify("この施設では本日のスタンプを既に取得済みです。\n1日1施設1スタンプまでとなります。\n他の参加施設や明日また参加施設をお訪ねください！", "ℹ️");
