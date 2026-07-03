@@ -131,6 +131,18 @@
 
     const CORRECT_PW = "10842";
 
+    const FACILITIES = [
+      "ウェルビー福岡",
+      "おとぎの杜",
+      "小倉サウナTOTONOI",
+      "筑紫の湯",
+      "筑紫野 天拝の郷",
+      "照葉スパリゾート本店",
+      "照葉スパリゾート門司店",
+      "天然温泉コロナの湯 小倉店",
+      "那珂川清滝",
+    ];
+
     window.checkLogin = function() {
       const val = document.getElementById('pw-input').value;
       if (val === CORRECT_PW) {
@@ -211,6 +223,16 @@
               <div class="bar-pct">${pct(count)}%</div>
             </div>`;
           }).join('')}
+
+          <p class="section-title">施設別 スキャン数</p>
+          <table class="prize-table">
+            <tr><th>施設名</th><th>スキャン数</th><th>ユニーク人数</th></tr>
+            ${FACILITIES.map((name, idx) => {
+              const scans   = docs.reduce((sum, d) => sum + (d.stamps||[]).filter(s => s.facilityIndex === idx).length, 0);
+              const uniq    = docs.filter(d => (d.stamps||[]).some(s => s.facilityIndex === idx)).length;
+              return `<tr><td>${name}</td><td>${scans}回</td><td>${uniq}人</td></tr>`;
+            }).join('')}
+          </table>
         `;
 
         document.getElementById('updated-at').textContent =
